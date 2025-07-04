@@ -2,4 +2,7 @@ vllm
 transformers 
 aiohttp 
 pandas 
-datasets 
+datasets
+hydra-core
+optuna
+requests
