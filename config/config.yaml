@@ -1,0 +1,36 @@
+server:
+  model_path: "/home/ubuntu/models/Qwen2.5-0.5B"
+  base_url: "http://localhost:30000"
+  model: "Qwen2.5-0.5B"
+
+benchmark:
+  input_len: 2048
+  output_len: 256
+  dataset_name: "random"
+  percentile_metrics: "ttft,tpot,itl,e2el"
+  result_filename: "result.json"
+  max_concurrency: 1
+  num_prompts: 1
+
+container:
+  image: "lmsysorg/sglang:latest"
+  name: "sglang_optuna"
+  port: 30000
+
+healthcheck:
+  url: "${server.base_url}/health"
+  max_tries: 30
+  interval: 10.0
+
+optuna:
+  storage: "sqlite:///db.sqlite3"
+  n_trials: 20
+  chunked_prefill_size: [16, 1024, 16]
+  max_prefill_tokens: [512, 4096, 512]
+  schedule_policy: ["fcfs", "random", "lpm", "dfs-weight"]
+  schedule_conservativeness: [0.0, 1.0, 0.1]
+  default:
+    chunked_prefill_size: 512
+    max_prefill_tokens: 2048
+    schedule_policy: "fcfs"
+    schedule_conservativeness: 1.0
