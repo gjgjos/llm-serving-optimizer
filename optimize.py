@@ -10,9 +10,6 @@ from hydra.utils import get_original_cwd
 
 @main(config_path="config", config_name="config")
 def main(cfg: DictConfig) -> None:
-    # Retrieve Hugging Face token from environment
-    hf_token = os.getenv("HF_TOKEN")
-
     # Load configuration values
     model_path = cfg.server.model_path
     docker_image = cfg.container.image
@@ -50,7 +47,6 @@ def main(cfg: DictConfig) -> None:
             "-v", f"{model_path}:{model_path}",
             "--ipc=host",
             "--rm", "--name", name,
-            "-e", f"HF_TOKEN={hf_token}",
             docker_image,
             "python3", "-m", "sglang.launch_server",
             "--model-path", model_path,

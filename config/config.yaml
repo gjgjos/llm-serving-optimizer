@@ -1,16 +1,16 @@
 server:
   model_path: "/home/ubuntu/models/Qwen2.5-0.5B"
   base_url: "http://localhost:30000"
-  model: "Qwen2.5-0.5B"
+  model: "Qwen2.5-0.5b-instruct"
 
 benchmark:
-  input_len: 2048
+  input_len: 256
   output_len: 256
   dataset_name: "random"
   percentile_metrics: "ttft,tpot,itl,e2el"
   result_filename: "result.json"
-  max_concurrency: 1
-  num_prompts: 1
+  max_concurrency: 100
+  num_prompts: 500
 
 container:
   image: "lmsysorg/sglang:latest"
