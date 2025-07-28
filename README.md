@@ -1,8 +1,3 @@
-물론입니다! 핵심만 간결하게 담은 `README.md` 버전을 아래와 같이 작성해드릴게요:
-
----
-
-````markdown
 # ⚡️ LLM Serving Optimizer
 
 Optimize LLM serving speed using **SGLang + Optuna + Hydra**.
